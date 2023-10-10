@@ -1,13 +1,13 @@
 {
-    "name": "sock-node",
+    "name": "mta-nodediscord",
     "version": "1.0.0",
-    "main": "index.ts",
+    "main": "./src/index.ts",
     "scripts": {
         "start": "ts-node ./src/index.ts"
     },
     "author": "Tracer",
-    "license": "ISC",
-    "description": "",
+    "license": "GNU-GPLv3",
+    "description": "MTA <=> Node + Discord integration tool",
     "devDependencies": {
         "@types/node": "^20.6.5",
         "discord.js": "^14.13.0",
