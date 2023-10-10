@@ -1,4 +1,4 @@
-<h1 style="text-align: center">MTA <=> Node + Discord</h1>
+<h1 align="center">MTA <=> Node + Discord</h1>
 
 ### Installation
 1. Download newest release from [Release](./releases) menu
