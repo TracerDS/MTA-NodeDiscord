@@ -1,0 +1,49 @@
+{
+    "include": [
+        "./src"
+    ],
+    "exclude": [
+        "./node_modules",
+        "./.vscode",
+        "./out"
+    ],
+    "compileOnSave": true,
+    "compilerOptions": {
+        /* Basic Options */
+        "target": "ESNext",
+        "module": "CommonJS",
+        "lib": [
+            "ESNext",
+            "DOM"
+        ],
+        "outDir": "./out",
+        "declarationDir": "./types",
+        "rootDir": "./src",
+        "importHelpers": true,
+        "isolatedModules": true,
+        "declaration": true,
+
+        /* Strict Type-Checking Options */
+        "strict": true,
+        "strictPropertyInitialization": false,
+
+        /* Additional Checks */
+        "noUnusedLocals": false,
+        "noUnusedParameters": false,
+        "noImplicitReturns": false,
+        "noImplicitAny": false,
+        "noFallthroughCasesInSwitch": true,
+        "noUncheckedIndexedAccess": true,
+        "noPropertyAccessFromIndexSignature": false,
+
+        /* Module Resolution Options */
+        "moduleResolution": "node",
+        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true,
+
+        /* Advanced Options */
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true,
+        "resolveJsonModule": true
+    }
+}
