@@ -19,22 +19,34 @@ let payloads: {
     const files = await fs.readdir(path.join(__dirname, 'payloads'))
 
     files.filter(value => value.endsWith('.ts')).forEach(async file => {
-        payloads[file.replace(/\.[^/.]+$/, '')] = (await import(`./payloads/${file}`)).default
+        payloads[path.parse(file).name] = (await import(`./payloads/${file}`)).default
     })
 })()
 
 async function dataHandler(this: Server, socket: net.Socket, data: Buffer): Promise<void> {
     try {
-        let jsonData = JSON.parse(data.toString('utf8')) as PayloadData
-        if(!('type' in jsonData)){
-            throw new InvalidPayloadError(jsonData)
-        }
-        if(jsonData.type !== 'auth' && !this.isAuthenticated) {
-            throw new NotAuthError(jsonData.payload)
-        }
-        for(let [key, value] of Object.entries(payloads)) {
-            if(jsonData.type.startsWith(key)) {
-                await value.call(this, socket, jsonData)
+        this._buffer = Buffer.concat([this._buffer, data])
+
+        while(this._buffer.length >= 4){
+            const messageLength = this._buffer.readInt32BE(0)
+      
+            if (this._buffer.length < 4 + messageLength) 
+                break
+            
+            const message = this._buffer.subarray(4, 4 + messageLength)
+            this._buffer = this._buffer.subarray(4 + messageLength)
+    
+            let jsonData = JSON.parse(message.toString('utf8')) as PayloadData
+            if(!('type' in jsonData)){
+                throw new InvalidPayloadError(jsonData)
+            }
+            if(jsonData.type !== 'auth' && !this.isAuthenticated) {
+                throw new NotAuthError(jsonData.payload)
+            }
+            for(let [key, value] of Object.entries(payloads)) {
+                if(jsonData.type.startsWith(key)) {
+                    await value.call(this, socket, jsonData)
+                }
             }
         }
     }catch(exc: any) {

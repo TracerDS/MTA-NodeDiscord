@@ -17,6 +17,8 @@ class Server extends net.Server {
     public get isAuthenticated(): boolean { return !!this._authServer }
     protected get privateKey(): string { return this.__privateKey }
 
+    protected _buffer: Buffer = Buffer.alloc(0)
+
     constructor(host?: string, port?: number) {
         super()
         if(host) this.__host = host
