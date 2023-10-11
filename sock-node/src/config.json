@@ -1,4 +1,5 @@
 {
     "serverport": 22003,
-    "privatePassword": "testserver"
+    "privatePassword": "testserver",
+    "defaultLanguage": "en"
 }

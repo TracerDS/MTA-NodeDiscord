@@ -133,6 +133,18 @@ class Color {
     static printRed(text: string) { console.log(this.red(text)) }
     static printGreen(text: string) { console.log(this.green(text)) }
     static printBlue(text: string) { console.log(this.blue(text)) }
+    static printYellow(text: string) { console.log(this.yellow(text))}
+    static printMagenta(text: string) { console.log(this.magenta(text))}
+    static printCyan(text: string) { console.log(this.cyan(text))}
+    static printWhite(text: string) { console.log(this.white(text))}
+    static printLightBlack(text: string) { console.log(this.lightBlack(text))}
+    static printLightRed(text: string) { console.log(this.lightRed(text))}
+    static printLightGreen(text: string) { console.log(this.lightGreen(text))}
+    static printLightYellow(text: string) { console.log(this.lightYellow(text))}
+    static printLightBlue(text: string) { console.log(this.lightBlue(text))}
+    static printLightMagenta(text: string) { console.log(this.lightMagenta(text))}
+    static printLightCyan(text: string) { console.log(this.lightCyan(text))}
+    static printLightWhite(text: string) { console.log(this.lightWhite(text))}
 
     static printRGB(text: string, r?: number, g?: number, b?: number, background?: boolean) {
         console.log(this.rgb(text,r,g,b,background))

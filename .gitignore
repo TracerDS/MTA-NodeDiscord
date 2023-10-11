@@ -4,6 +4,3 @@
 !sock-node/
 !LICENSE
 !README
-
-/*/node_modules
-/*/.env

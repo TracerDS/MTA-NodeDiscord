@@ -1,0 +1,50 @@
+{
+	"commands": {
+        "info": {
+            "serverinfo": {
+                "description": "Gets server info",
+
+                "owner": "Owner",
+                "guildCreatedAt": "Guild created at",
+                "guildMembers": "Members",
+                "guildUsers": "Users",
+                "guildBots": "Bots",
+                "guildChannels": "Channels",
+                "guildRoles": "Roles",
+                "guildBans": "Bans",
+                "guildBoosts": "Boosts",
+                "guildTier": "Tier",
+                "guildVerification": "Verification level"
+            },
+            "guildconfig": {
+                "description": ""
+            }
+        }
+    },
+	"slash": {
+        "guildStarted": "Started refreshing guild commands...",
+        "guildRefreshingCmds": "\t -Refreshing %s [%d] commands...",
+        "guildRefreshSuccess": "Successfully reloaded guild commands!",
+        
+        "globalStarted": "Started refreshing global commands...",
+        "globalRefreshSuccess": "Successfully reloaded global commands!",
+        "error": "An error occured while refreshing commands: %s"
+    },
+	"general": {
+        "commands": {
+            "doesntExist": "Command \"%s\" doesn't exist!",
+            "executeError": "There was an error while executing this command!",
+            "unknownFile": "Detected unknown file in commands directory: \"%s\"",
+            "noName": "Command \"%s\" doesn't have a name!",
+            "noDescription": "Command \"%s\" doesn't have a description!",
+            "noExecute": "Command \"%s\" doesn't have a execute!",
+            "initialized": "Command \"%s\" successfully initialized!",
+            "global": {
+                "notInServer": "Not in a server!"
+            }
+        }
+    },
+	"bot": {
+	    "loggedIn": "Logged in as \"%s\"!"
+    }
+}

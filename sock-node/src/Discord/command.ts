@@ -5,7 +5,12 @@ import {
 } from 'discord.js'
 import * as fs from 'node:fs/promises'
 import * as path from 'node:path'
+
+import { fetchLanguages } from './lang'
+import * as config from '../config.json'
 import Color from '../utils/colors'
+import Logger from '../utils/logger'
+import { format } from '../utils/utils'
 
 interface ICommand {
     name: string,
@@ -28,16 +33,18 @@ class Command implements ICommand {
 async function initCommands(){
     let commands: Collection<string, ICommand> = new Collection()
 
+    const LANGS = await fetchLanguages()
+	let lang: object|undefined = LANGS[config.defaultLanguage]
+	if(!lang) lang = LANGS['en']
+
     const cmdCategoriesPath = path.join(__dirname, 'commands')
     const cmdCategories = await fs.readdir(cmdCategoriesPath)
 
     for(const dir of cmdCategories) {
         const cmdPath = path.join(cmdCategoriesPath, dir)
         if((await fs.lstat(cmdPath)).isFile()){
-            let relpath = path.relative(cmdCategoriesPath, cmdPath)
-            console.error(Color.red(
-                `Detected unknown file in commands directory: "${relpath}"`
-            ))
+            const relPath = path.relative(cmdCategoriesPath, cmdPath)
+            Logger.err(format(lang!['general'].commands.unknownFile, relPath))
             continue
         }
 
@@ -47,25 +54,19 @@ async function initCommands(){
             const relPath = `.${path.sep}${path.relative(cmdCategoriesPath, filePath)}`
 
             if(!('name' in command)){
-                console.error(Color.red(
-                    `Command "${relPath}" doesn't have a name!`
-                ))
+                Logger.err(format(lang!['general'].commands.noName, relPath))
                 continue
             }
             if(!('description' in command)){
-                console.error(Color.red(
-                    `Command "${relPath}" doesn't have a description!`
-                ))
+                Logger.err(format(lang!['general'].commands.noDescription, relPath))
                 continue
             }
             if(!('execute' in command)){
-                console.error(Color.red(
-                    `Command "${relPath}" doesn't have an "execute" function!`
-                ))
+                Logger.err(format(lang!['general'].commands.noExecute, relPath))
                 continue
             }
             commands.set(command.name, command)
-            console.log(Color.rgb(`Command "${relPath}" successfully initialized!`, 70,255,70))
+            Logger.confirm(format(lang!['general'].commands.initialized, relPath))
         }
     }
     return commands
@@ -86,5 +87,5 @@ async function initCommandsArray() {
     return cmds
 }
 
-export type { ICommand as ICommand }
+export type { ICommand }
 export { Command, initCommands, initCommandsArray }

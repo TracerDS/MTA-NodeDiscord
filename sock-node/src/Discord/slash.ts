@@ -1,13 +1,20 @@
 import { REST, Routes, Client, Guild } from 'discord.js'
 
 import { initCommandsArray } from './command'
+import { fetchLanguages } from './lang'
 import Intents from './intents'
 
-import Color from '../utils/colors'
+import * as config from '../config.json'
+import { format } from '../utils/utils'
+import Logger from '../utils/logger'
 
 require('dotenv').config()
 
 ;(async () => {
+	const LANGS = await fetchLanguages()
+	let lang: object|undefined = LANGS[config.defaultLanguage]
+	if(!lang) lang = LANGS['en']
+
 	const bot = new Client({ intents: Intents })
 	bot.login(process.env.TOKEN)
 	bot.on('ready', async (client: Client) => {
@@ -15,24 +22,23 @@ require('dotenv').config()
 		let commands = await initCommandsArray()
 
 		try {
-			console.log(Color.lightMagenta(`Started refreshing guild commands...`))
+			Logger.lightMagenta(lang!['slash'].guildStarted)
 			bot.guilds.cache.forEach(async (guild: Guild) => {
-				console.log(Color.cyan(`\t- Refreshing ${guild.name} [${guild.id}] commands...`))
+				Logger.cyan(format(lang!['slash'].guildRefreshingCmds, guild.name, guild.id))
 				await rest.put(Routes.applicationGuildCommands(client.user!.id, guild.id))
 			})
-			console.log(Color.lightGreen(`Successfully reloaded guild commands!`))
-			console.log()
-			console.log(Color.lightMagenta(`Started refreshing global commands...`))
+			Logger.lightGreen(lang!['slash'].guildRefreshSuccess)
+			Logger.lightGreen(lang!['slash'].globalStarted)
 			
 			await rest.put(
 				Routes.applicationCommands(client.user!.id),
 				{ body: commands },
 			)
 
-			console.log(Color.lightGreen(`Successfully reloaded global commands!`))
+			Logger.lightGreen(lang!['slash'].globalRefreshSuccess)
 			bot.destroy()
 		} catch (error) {
-			console.error(Color.red(`An error occured: ${error}`))
+			Logger.err(format(lang!['slash'].error, error))
 		}
 	})
 })()
