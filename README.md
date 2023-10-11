@@ -1,7 +1,19 @@
-<h1 align="center">MTA <=> Node + Discord</h1>
+<h1 align='center'>MTA <=> Node + Discord</h1>
+
+This tool will allow you to connect MTA Server and Discord bot via Node.JS server.
+It is based on previous <a href='https://github.com/botder/mtasa-discord-bot'>MTA-Discord repo</a> but with significant improvements to accessibility and readability.
+<hr/>
+
+<p style='font-size: x-large'>Table of contents</p>
+<ul>
+    <li><a href='#installation'>Installation</a></li>
+    <li><a href='#what-is-what'>What is what</a></li>
+    <li><a href='#contributing'>Contributing</a></li>
+</ul>
+<hr/>
 
 ### Installation
-1. Download newest release from [Release](./releases) menu
+1. Download newest release from [Release](https://github.com/TracerDS/MTA-NodeDiscord/Releases) menu
 2. Unpack folders to your `resources` directory
 3. Install [sockets](https://wiki.mtasa.com/Modules/Sockets) module and place it in your `modules` directory
 4. Go to `sock-node` directory
@@ -37,3 +49,7 @@ Don't forget to add command entry to the translation file accordingly
 
 - If you want to add more MTA interactions, create new `.ts` file inside `Server/payloads` directory and add logic behind it. Since it is not a direct `Node <=> MTA` connector, you can't execute MTA commands from Node directly.
 You can however use a neat trick: send whatever data you want to the MTA and then parse it from the lua script to do whatever you want.
+
+
+### Contributing
+If you'd like to improve this tool or you managed to find a bug, please create an [issue](https://github.com/TracerDS/MTA-NodeDiscord/issues) or a [pull request](https://github.com/TracerDS/MTA-NodeDiscord/pulls) with expected changes
